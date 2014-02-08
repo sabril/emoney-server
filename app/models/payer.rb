@@ -1,0 +1,3 @@
+class Payer < Account
+  
+end

@@ -3,11 +3,28 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'pg'
+gem "mongoid", :git => "git@github.com:mongoid/mongoid.git"
+gem "bson_ext"
+## authentication and authorization
+gem "devise"
+gem "cancan"
 
 # Use SCSS for stylesheets
+gem "less-rails"
+gem "therubyracer"
 gem 'sass-rails', '~> 4.0.0'
+gem "kaminari"
+gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'twitter-bootstrap-rails', github: "seyhunak/twitter-bootstrap-rails", branch: "bootstrap3"
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
+gem 'quiet_assets', :group => :development
+gem "simple_form"
+
+# track
+gem 'paper_trail', '~> 3.0.0'
+gem 'inherited_resources'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -32,6 +49,29 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'unicorn'
+
+group :development, :test do
+  gem "rspec-rails", "2.13.0"
+  gem "guard-rspec"
+  gem "guard-bundler"
+  gem "rb-fsevent"
+  gem 'simplecov', :require => false
+  gem "faker"
+  gem "database_cleaner"
+end
+
+group :test do
+  gem "capybara"
+  gem "factory_girl_rails", "4.1.0"
+  gem "forgery"
+  gem "zeus"
+  gem 'selenium-webdriver'
+  gem "launchy"
+end
+
+gem 'jquery-ui-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
@@ -43,3 +83,10 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+group :development do
+  gem "rails_best_practices"
+end
+
+gem "brakeman"
+gem "figaro"
+gem "wicked"
