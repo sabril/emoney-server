@@ -72,6 +72,9 @@ end
 
 gem 'jquery-ui-rails'
 
+group :assets do
+  gem 'turbo-sprockets-rails3'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
