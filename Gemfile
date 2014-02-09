@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'pg'
-gem "mongoid", :git => "git@github.com:mongoid/mongoid.git"
+gem "mongoid", :github => "mongoid/mongoid"
 gem "bson_ext"
 ## authentication and authorization
 gem "devise"
