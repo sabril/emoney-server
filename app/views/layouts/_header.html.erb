@@ -1,0 +1,31 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <% if user_signed_in? %>
+        <a class="navbar-brand" href="/dashboard"><b>Emoney Server</b></a>
+      <% else %>
+        <a class="navbar-brand" href="/"><b>Emoney Server</b></a>
+      <% end %>
+    </div>
+    <div class="nav-collapse navbar-responsive-collapse">
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav navbar-left">
+          <!-- <li><a href="/assessments">Assessments</a></li> -->
+        </ul>
+      <% end %>
+      <ul class="nav navbar-nav navbar-right">
+        <% unless user_signed_in? %>
+          <li><a href="/users/sign_in">Sign In</a></li>
+        <% else %>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/logout">Logout</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
