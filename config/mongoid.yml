@@ -67,8 +67,14 @@ development:
     # Ensure all times are UTC in the app side. (default: false)
     # use_utc: false
 production: 
-  uri: <%= ENV['MONGOHQ_URL'] %>
-  options:
+  sessions:
+    default:
+      database: app22034297
+      hosts: 
+        - troup.mongohq.com:10064
+      username: heroku
+      password: e39c647dfbdfb1faaa4fd3311584db20
+    
 test:
   sessions:
     default:
