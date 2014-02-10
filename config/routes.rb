@@ -7,6 +7,12 @@ EmoneyServer::Application.routes.draw do
   resources :accounts do
     resources :transaction_logs
   end
+  resources :payers, controller: "accounts_controller" do
+    
+  end
+  resources :merchants, controller: "accounts_controller" do
+    
+  end
   devise_for :users
   devise_scope :user do
     get '/logout' => "devise/sessions#destroy"

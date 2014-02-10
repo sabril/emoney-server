@@ -6,8 +6,10 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:type) %></th>
       <th><%= model_class.human_attribute_name(:balance) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:last_update) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -15,10 +17,12 @@
     <% @accounts.each do |account| %>
       <tr>
         <td><%= link_to account.id, account_path(account) %></td>
+        <td><%= account._type %></td>
         <td><%= account.balance %></td>
         <td><%=l account.created_at %></td>
+        <td><%=l account.updated_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <%#= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       account_path(account),

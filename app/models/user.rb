@@ -43,9 +43,16 @@ class User
   field :public_key
   field :is_admin, type: Boolean, default: false
   has_many :accounts, dependent: :destroy
+  has_many :payers, dependent: :destroy
+  has_many :merchants, dependent: :destroy
 
+  after_create :create_payer_account
   accepts_nested_attributes_for :accounts
   def self.columns
     self.fields.collect{|c| c[1]}
+  end
+  
+  def create_payer_account
+    payers.create(balance: 0.0)
   end
 end
