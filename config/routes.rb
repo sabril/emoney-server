@@ -5,13 +5,17 @@ EmoneyServer::Application.routes.draw do
     end
   end
   resources :accounts do
+    member do
+      get :top_up
+      post :process_top_up
+    end
     resources :transaction_logs
   end
   resources :payers, controller: "accounts_controller" do
-    
+    resources :transaction_logs
   end
   resources :merchants, controller: "accounts_controller" do
-    
+    resources :transaction_logs
   end
   devise_for :users
   devise_scope :user do

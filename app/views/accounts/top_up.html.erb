@@ -1,0 +1,12 @@
+<h3>Top Up</h3>
+<%= simple_form_for @transaction_log, url: process_top_up_account_url(@account, @transaction_log), :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="form-inputs">
+    <%= f.input :amount %>
+  </div>
+  <br/>
+  <div class="form-actions">
+  <%= f.button :submit, "Top Up", :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                accounts_path, :class => 'btn btn-default' %>
+  </div>
+<% end %>

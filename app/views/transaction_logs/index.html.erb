@@ -20,7 +20,7 @@
   <tbody>
     <% @transaction_logs.each do |transaction_log| %>
       <tr>
-        <td><%= link_to transaction_log.id, transaction_log_path(transaction_log) %></td>
+        <td><%= link_to transaction_log.id, account_transaction_log_path(@account, transaction_log) %></td>
         <td><%= transaction_log.amount %></td>
         <td><%= transaction_log.log_type %></td>
         <td><%= transaction_log.payer_id %></td>
@@ -31,9 +31,9 @@
         <td><%=l transaction_log.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_transaction_log_path(transaction_log), :class => 'btn btn-default btn-xs' %>
+                      edit_account_transaction_log_path(@account, transaction_log), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      transaction_log_path(transaction_log),
+                      account_transaction_log_path(@account, transaction_log),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
