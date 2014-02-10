@@ -1,4 +1,12 @@
 EmoneyServer::Application.routes.draw do
+  namespace :admin do
+    resources :users do
+      resources :accounts
+    end
+  end
+  resources :accounts do
+    resources :transaction_logs
+  end
   devise_for :users
   devise_scope :user do
     get '/logout' => "devise/sessions#destroy"
@@ -9,6 +17,7 @@ EmoneyServer::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+  get "/dashboard" => "home#index"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

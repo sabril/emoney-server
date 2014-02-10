@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -40,8 +41,11 @@ class User
   field :address
   field :phone
   field :public_key
-
+  field :is_admin, type: Boolean, default: false
   has_many :accounts, dependent: :destroy
 
   accepts_nested_attributes_for :accounts
+  def self.columns
+    self.fields.collect{|c| c[1]}
+  end
 end
