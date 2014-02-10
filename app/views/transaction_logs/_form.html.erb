@@ -1,0 +1,13 @@
+<%= simple_form_for @transaction_log, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :amount %>
+  <%= f.input :log_type %>
+  <%= f.input :payer_id %>
+  <%= f.input :merchant_id %>
+  <%= f.input :timestamp %>
+  <%= f.input :cancel %>
+  <%= f.input :status %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                transaction_logs_path, :class => 'btn btn-default' %>
+<% end %>
