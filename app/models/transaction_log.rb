@@ -9,7 +9,7 @@ class TransactionLog
   field :payer_id, type: Integer
   field :merchant_id, type: Integer
   field :timestamp, type: Integer
-  field :cancel, type: Boolean
+  field :cancel, type: Boolean, default: false
   field :status, type: String, default: "unsync"
   
   validate :check_account_balance
