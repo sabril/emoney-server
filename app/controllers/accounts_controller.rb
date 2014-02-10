@@ -3,7 +3,7 @@ class AccountsController < InheritedResources::Base
 
   def top_up
     @account = Account.find params[:id]
-    @transaction_log = @account.transaction_logs.build
+    @transaction_log = @account.transaction_logs.build(log_type: "TopUp")
   end
   
   def process_top_up
@@ -17,6 +17,6 @@ class AccountsController < InheritedResources::Base
   end
   
   def top_up_params
-    params.require(:transaction_log).permit([:amount])
+    params.require(:transaction_log).permit([:amount, :log_type])
   end
 end
