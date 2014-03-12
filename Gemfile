@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 
 gem 'pg'
 gem "mongoid", :github => "mongoid/mongoid"
@@ -9,6 +9,7 @@ gem "bson_ext"
 ## authentication and authorization
 gem "devise"
 gem "cancan"
+gem 'simple_token_authentication'
 
 # Use SCSS for stylesheets
 gem "less-rails"
@@ -37,6 +38,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+#gem 'grape', github: 'intridea/grape'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

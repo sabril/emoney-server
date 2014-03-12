@@ -1,6 +1,10 @@
 class AccountsController < InheritedResources::Base
   before_filter :authenticate_user!
 
+  def index
+    @accounts = current_user.accounts
+  end
+  
   def top_up
     @account = Account.find params[:id]
     @transaction_log = @account.transaction_logs.build(log_type: "TopUp")

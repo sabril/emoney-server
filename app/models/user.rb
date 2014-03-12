@@ -34,7 +34,7 @@ class User
   field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
   field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
   field :locked_at,       :type => Time
-  
+
   field :first_name
   field :last_name
   field :identity_number
@@ -42,17 +42,33 @@ class User
   field :phone
   field :public_key
   field :is_admin, type: Boolean, default: false
+  field :authentication_token
   has_many :accounts, dependent: :destroy
   has_many :payers, dependent: :destroy
   has_many :merchants, dependent: :destroy
 
+  before_save :ensure_authentication_token
   after_create :create_payer_account
   accepts_nested_attributes_for :accounts
   def self.columns
     self.fields.collect{|c| c[1]}
   end
-  
+
   def create_payer_account
     payers.create(balance: 0.0)
+  end
+
+  def ensure_authentication_token
+    if authentication_token.blank?
+      self.authentication_token = generate_authentication_token
+    end
+  end
+
+  private
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
   end
 end

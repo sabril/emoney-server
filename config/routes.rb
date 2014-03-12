@@ -1,4 +1,13 @@
 EmoneyServer::Application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      devise_scope :user do
+        post 'sessions' => 'sessions#create', :as => 'login'
+        delete 'sessions' => 'sessions#destroy', :as => 'logout'
+      end
+    end
+  end
+  
   namespace :admin do
     resources :users do
       resources :accounts
@@ -22,6 +31,8 @@ EmoneyServer::Application.routes.draw do
     get '/logout' => "devise/sessions#destroy"
     get '/profile' => "devise/registrations#edit"
   end
+  
+  post '/sync' => "transaction_logs#sync"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

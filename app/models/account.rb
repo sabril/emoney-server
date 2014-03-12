@@ -5,7 +5,7 @@ class Account
   embeds_many :transaction_logs
 
   field :balance, type: Float
-
+  field :imei
   def self.columns
     self.fields.collect{|c| c[1]}
   end
