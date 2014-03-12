@@ -12,6 +12,7 @@ EmoneyServer::Application.routes.draw do
     resources :users do
       resources :accounts
     end
+    resources :syncs
   end
   resources :accounts do
     member do

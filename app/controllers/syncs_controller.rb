@@ -1,2 +1,0 @@
-class SyncsController < ApplicationController
-end
