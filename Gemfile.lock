@@ -253,6 +253,7 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.2.2)
       sexp_processor (~> 4.1)
+    rubysl-securerandom (2.0.0)
     rubyzip (0.9.9)
     sass (3.2.14)
     sass-rails (4.0.1)
@@ -364,6 +365,7 @@ DEPENDENCIES
   rails_best_practices
   rb-fsevent
   rspec-rails (= 2.13.0)
+  rubysl-securerandom
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver

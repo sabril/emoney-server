@@ -96,3 +96,4 @@ end
 gem "brakeman"
 gem "figaro"
 gem "wicked"
+gem 'rubysl-securerandom'
