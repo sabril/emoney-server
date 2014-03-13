@@ -14,6 +14,7 @@ class TransactionLogsController < InheritedResources::Base
 
   def sync
     @sync = Sync.new(data: params[:data])
+    @key = params[:key]
     @sync.save
     respond_to do |format|
       format.json
