@@ -15,7 +15,7 @@
     <% @syncs.each do |sync| %>
       <tr>
         <td><%= link_to sync.id, admin_sync_path(sync) %></td>
-        <td><%= sync.data %></td>
+        <td><%#= sync.data %></td>
         <td><%=l sync.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
