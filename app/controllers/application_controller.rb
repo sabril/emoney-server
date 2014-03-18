@@ -15,6 +15,14 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound do
     render :not_found
   end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+  def sort_column
+    params[:sort].blank? ? "created_at" : params[:sort]
+  end
 
   private
   def authenticate_user_from_token!
