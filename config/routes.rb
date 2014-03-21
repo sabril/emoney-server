@@ -34,6 +34,7 @@ EmoneyServer::Application.routes.draw do
   end
   
   post '/sync' => "transaction_logs#sync"
+  post '/register' => "accounts#register"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

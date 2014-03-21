@@ -1,5 +1,5 @@
 class AccountsController < InheritedResources::Base
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:register]
   skip_before_filter :verify_authenticity_token, only: :register, :if => Proc.new { |c| c.request.format == 'application/json' }
 
   def index
@@ -12,6 +12,14 @@ class AccountsController < InheritedResources::Base
   end
   
   def register
+    data = JSON.parse params[:data].to_s
+    @account = Account.find data["ACCN"]
+    unless @account
+      @error = "Account not found"
+    else
+      @account.update_attributes(imei: data["HWID"])
+      @key = ServerSetting.first.key
+    end
     respond_to do |format|
       format.json
     end
