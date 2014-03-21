@@ -5,7 +5,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:accn) %></th>
+      <th><%= model_class.human_attribute_name(:imei) %></th>
       <th><%= model_class.human_attribute_name(:type) %></th>
       <th><%= model_class.human_attribute_name(:balance) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -16,7 +17,8 @@
   <tbody>
     <% @accounts.each do |account| %>
       <tr>
-        <td><%= link_to account.id, account_path(account) %></td>
+        <td><%= link_to account.accn, account_path(account) %></td>
+        <td><%= account.imei %></td>
         <td><%= account._type %></td>
         <td><%= account.balance %></td>
         <td><%=l account.created_at %></td>
