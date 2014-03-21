@@ -13,7 +13,7 @@ class AccountsController < InheritedResources::Base
   
   def register
     data = JSON.parse params[:data].to_s
-    @account = Account.where(id: data["ACCN"], imei: data["HWID"]).first
+    @account = Account.where(accn: data["ACCN"], imei: data["HWID"]).first
     unless @account
       @error = "Account not found"
     else
