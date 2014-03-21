@@ -13,7 +13,11 @@ class TransactionLogsController < InheritedResources::Base
   end
 
   def sync
-    @sync = Sync.new(data: params[:data])
+    #data = JSON.parse params[:data]
+    #logs_row = data["logs"]
+    #signature = data["header"]["signature"]
+    #last_sync_at = data["header"]["last_sync_at"]}
+    @sync = Sync.new(data: params[:data], header: params[:header], logs: params[:logs])
     @key = ServerSetting.first.key
     @sync.save
     respond_to do |format|
