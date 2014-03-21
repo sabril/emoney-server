@@ -13,10 +13,13 @@ class TransactionLogsController < InheritedResources::Base
   end
 
   def sync
-    #data = JSON.parse params[:data]
-    #logs_row = data["logs"]
-    #signature = data["header"]["signature"]
-    #last_sync_at = data["header"]["last_sync_at"]}
+    header = JSON.parse params[:header]
+    logs_row = params[:logs]
+    signature = header["signature"]
+    last_sync_at = header["last_sync_at"]
+    if signature != Digest::SHA256.hexdigest(logs_row).upcase
+      @error = "Hash not match"
+    end
     @sync = Sync.new(data: params[:data], header: params[:header], logs: params[:logs])
     @key = ServerSetting.first.key
     @sync.save
