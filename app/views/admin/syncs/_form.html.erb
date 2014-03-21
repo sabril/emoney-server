@@ -1,4 +1,6 @@
 <%= simple_form_for @sync, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :header, as: :text, input_html: {rows: 20} %>
+  <%= f.input :logs, as: :text, input_html: {rows: 20} %>
   <%= f.input :data, as: :text, input_html: {rows: 20} %>
 
   <%= f.button :submit, :class => 'btn-primary' %>
