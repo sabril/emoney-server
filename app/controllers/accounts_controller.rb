@@ -17,7 +17,7 @@ class AccountsController < InheritedResources::Base
     unless @account
       @error = "Account not found"
     else
-      @account.update_attributes(imei: data["HWID"])
+      #@account.update_attributes(imei: data["HWID"])
       @key = ServerSetting.first.key
     end
     respond_to do |format|
