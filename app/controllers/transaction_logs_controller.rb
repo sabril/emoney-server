@@ -19,6 +19,34 @@ class TransactionLogsController < InheritedResources::Base
     last_sync_at = header["last_sync_at"]
     if signature != Digest::SHA256.hexdigest(logs_row).upcase
       @error = "Hash not match"
+    else
+      account = Account.where(accn: header["ACCN"].to_s).first
+      if account
+        logs = JSON.parse(logs_row)
+        logs.each do |log|
+          Rails.logger.info "LOG: #{log.inspect}"
+          account.transaction_logs.create(
+            merchant_id: log["ACCN-R"],
+            payer_id: log["ACCN-S"],
+            amount: log["AMNT"],
+            log_type: log["PT"],
+            timestamp: log["TS"],
+            status: log["STAT"],
+            cancel: log["CNL"],
+            num: log["NUM"],
+            binary_id: log["BinaryID"]
+          )
+          # field :amount, type: Float
+          # field :log_type
+          # field :payer_id, type: Integer
+          # field :merchant_id, type: Integer
+          # field :timestamp, type: Integer
+          # field :cancel, type: Boolean, default: false
+          # field :status, type: String, default: "unsync"
+        end
+      else
+        @error = "Account not found"
+      end
     end
     @sync = Sync.new(data: params[:data], header: params[:header], logs: params[:logs])
     @key = ServerSetting.first.key

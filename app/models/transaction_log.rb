@@ -10,7 +10,10 @@ class TransactionLog
   field :merchant_id, type: Integer
   field :timestamp, type: Integer
   field :cancel, type: Boolean, default: false
-  field :status, type: String, default: "unsync"
+  field :status, type: String, default: 0
+  field :num, type: Integer
+  field :binary_id
+  
   
   validate :check_account_balance
   after_save :update_account_balance
