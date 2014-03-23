@@ -21,36 +21,32 @@ class TransactionLogsController < InheritedResources::Base
       @error = "Hash not match"
     else
       account = Account.where(accn: header["ACCN"].to_s).first
-      if account
-        logs = JSON.parse(logs_row)
-        logs.each do |log|
-          Rails.logger.info "LOG: #{log.inspect}"
-          account.transaction_logs.create(
-            merchant_id: log["ACCN-R"],
-            payer_id: log["ACCN-S"],
-            amount: log["AMNT"],
-            log_type: log["PT"],
-            timestamp: log["TS"],
-            status: log["STAT"],
-            cancel: log["CNL"],
-            num: log["NUM"],
-            binary_id: log["BinaryID"]
-          )
-          # field :amount, type: Float
-          # field :log_type
-          # field :payer_id, type: Integer
-          # field :merchant_id, type: Integer
-          # field :timestamp, type: Integer
-          # field :cancel, type: Boolean, default: false
-          # field :status, type: String, default: "unsync"
+      @sync = Sync.new(data: params[:data], header: params[:header], logs: params[:logs], hashed_logs: signature)
+      if @sync.save
+        if account
+          logs = JSON.parse(logs_row)
+          logs.each do |log|
+            Rails.logger.info "LOG: #{log.inspect}"
+            account.transaction_logs.create(
+              merchant_id: log["ACCN-R"],
+              payer_id: log["ACCN-S"],
+              amount: log["AMNT"],
+              log_type: log["PT"],
+              timestamp: log["TS"],
+              status: log["STAT"],
+              cancel: log["CNL"],
+              num: log["NUM"],
+              binary_id: log["BinaryID"]
+            )
+          end
+        else
+          @error = "Account not found"
         end
       else
-        @error = "Account not found"
+        @error = "Duplicate Transaction"
       end
     end
-    @sync = Sync.new(data: params[:data], header: params[:header], logs: params[:logs])
     @key = ServerSetting.first.key
-    @sync.save
     respond_to do |format|
       format.json
       format.html
