@@ -7,6 +7,7 @@ class Account
   field :balance, type: Float
   field :accn
   field :imei
+  validates :accn, presence: true, uniqueness: true
   before_save :set_accn
   def self.columns
     self.fields.collect{|c| c[1]}

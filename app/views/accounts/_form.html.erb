@@ -1,5 +1,6 @@
-<%= simple_form_for @account, :html => { :class => 'form-horizontal' } do |f| %>
-
+<%= simple_form_for @account, :html => { :class => 'form-vertical' } do |f| %>
+  <%= f.input :accn %>
+  <%= f.input :imei %>
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 accounts_path, :class => 'btn btn-default' %>

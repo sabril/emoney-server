@@ -54,8 +54,12 @@ class User
     self.fields.collect{|c| c[1]}
   end
 
-  def create_payer_account
-    payers.create(balance: 0.0)
+  def create_payer_account(balance=0.0)
+    payers.create(balance: balance)
+  end
+
+  def create_merchant_account(balance=0.0)
+    merchants.create(balance: balance)
   end
 
   def ensure_authentication_token

@@ -26,18 +26,36 @@ class TransactionLogsController < InheritedResources::Base
         if account
           logs = JSON.parse(logs_row)
           logs.each do |log|
-            Rails.logger.info "LOG: #{log.inspect}"
-            account.transaction_logs.create(
-              merchant_id: log["ACCN-R"],
-              payer_id: log["ACCN-S"],
-              amount: log["AMNT"],
-              log_type: log["PT"],
-              timestamp: log["TS"],
-              status: log["STAT"],
-              cancel: log["CNL"],
-              num: log["NUM"],
-              binary_id: log["BinaryID"]
-            )
+            # check merchant & payer
+            merchant = Merchant.where(id: log["ACCN-R"]).first
+            payer = Payer.where(id: log["ACCN-S"]).first
+            if merchant && payer
+              merchant.transaction_logs.create(
+                merchant_id: log["ACCN-R"],
+                payer_id: log["ACCN-S"],
+                amount: log["AMNT"],
+                log_type: log["PT"],
+                timestamp: log["TS"],
+                status: log["STAT"],
+                cancel: log["CNL"],
+                num: log["NUM"],
+                binary_id: log["BinaryID"]
+              )
+              
+              payer.transaction_logs.create(
+                merchant_id: log["ACCN-R"],
+                payer_id: log["ACCN-S"],
+                amount: -(log["AMNT"]),
+                log_type: log["PT"],
+                timestamp: log["TS"],
+                status: log["STAT"],
+                cancel: log["CNL"],
+                num: log["NUM"],
+                binary_id: log["BinaryID"]
+              )
+            else
+              @error = "Invalid Transactions"
+            end
           end
         else
           @error = "Account not found"
