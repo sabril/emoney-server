@@ -13,12 +13,27 @@ class AccountsController < InheritedResources::Base
   
   def register
     data = JSON.parse params[:data].to_s
-    @account = Account.where(accn: data["ACCN"].to_s, imei: data["HWID"].to_s).first
-    unless @account
-      @error = "Account not found"
+    # @account = Account.where(accn: data["ACCN"].to_s, imei: data["HWID"].to_s).first
+    # unless @account
+    #   @account = Account.where(accn: data["ACCN"].to_s).first
+    #   if @account
+    #     @account.update_attributes(imei: data["HWID"].to_s)
+    #   else
+    #     @error = "Account not found"
+    #   end
+    # else
+    #   @key = ServerSetting.first.key
+    # end
+    @account = Account.where(accn: data["ACCN"].to_s).first
+    if @account
+      if @account.imei.present?
+        @error = "Already registered"
+      else
+        @account.update_attributes(imei: data["HWID"].to_s)
+        @key = ServerSetting.first.key
+      end
     else
-      #@account.update_attributes(imei: data["HWID"])
-      @key = ServerSetting.first.key
+      @error = "Account not found"
     end
     respond_to do |format|
       format.json
