@@ -16,7 +16,8 @@ class TransactionLogsController < InheritedResources::Base
     header = JSON.parse params[:header]
     logs_row = params[:logs]
     signature = header["signature"]
-    last_sync_at = header["last_sync_at"]
+    last_sync_at = header["last_sync_at"] # to generate new key
+    #@error = ""
     if signature != Digest::SHA256.hexdigest(logs_row).upcase
       @error = "Hash not match"
     else
@@ -27,24 +28,12 @@ class TransactionLogsController < InheritedResources::Base
           logs = JSON.parse(logs_row)
           logs.each do |log|
             # check merchant & payer
-            merchant = Merchant.where(accn: log["ACCN-R"].to_s).first
-            payer = Payer.where(accn: log["ACCN-S"].to_s).first
+            merchant = Merchant.where(accn: log["ACCN-M"].to_s).first
+            payer = Payer.where(accn: log["ACCN-P"].to_s).first
             if merchant && payer
-              merchant.transaction_logs.create(
-                merchant_id: log["ACCN-R"],
-                payer_id: log["ACCN-S"],
-                amount: log["AMNT"],
-                log_type: log["PT"],
-                timestamp: log["TS"],
-                status: log["STAT"],
-                cancel: log["CNL"],
-                num: log["NUM"],
-                binary_id: log["BinaryID"]
-              )
-              
-              payer.transaction_logs.create(
-                merchant_id: log["ACCN-R"],
-                payer_id: log["ACCN-S"],
+              log_payer = payer.transaction_logs.build(
+                merchant_id: log["ACCN-M"],
+                payer_id: log["ACCN-P"],
                 amount: -(log["AMNT"]),
                 log_type: log["PT"],
                 timestamp: log["TS"],
@@ -53,8 +42,25 @@ class TransactionLogsController < InheritedResources::Base
                 num: log["NUM"],
                 binary_id: log["BinaryID"]
               )
+              if log_payer.save
+                log_merchant = merchant.transaction_logs.create(
+                  merchant_id: log["ACCN-M"],
+                  payer_id: log["ACCN-P"],
+                  amount: log["AMNT"],
+                  log_type: log["PT"],
+                  timestamp: log["TS"],
+                  status: log["STAT"],
+                  cancel: log["CNL"],
+                  num: log["NUM"],
+                  binary_id: log["BinaryID"]
+                )
+              else
+                # better error
+                @error = "Error Payer: #{log_payer.errors.messages}"
+              end
             else
-              @error = "Invalid Transactions on #{log["NUM"]}"
+              # need to block
+              @error = "Invalid Transactions"
             end
           end
         else

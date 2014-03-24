@@ -14,7 +14,6 @@ class TransactionLog
   field :num, type: Integer
   field :binary_id
   
-  
   validate :check_account_balance
   after_save :update_account_balance
   def self.columns
@@ -22,7 +21,9 @@ class TransactionLog
   end
 
   def check_account_balance
-    
+    if account._type == "Payer" && account.balance < amount.abs
+      errors.add(:base, "Account balance is not enough for this transaction's amount")
+    end
   end
   
   def update_account_balance
