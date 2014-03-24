@@ -38,4 +38,10 @@ class AccountsController < InheritedResources::Base
   def top_up_params
     params.require(:transaction_log).permit([:amount, :log_type])
   end
+  
+  private
+
+  def permitted_params
+    params.permit(account: [:imei, :accn])
+  end
 end

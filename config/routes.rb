@@ -21,10 +21,10 @@ EmoneyServer::Application.routes.draw do
     end
     resources :transaction_logs
   end
-  resources :payers, controller: "accounts_controller" do
+  resources :payers, controller: "accounts" do
     resources :transaction_logs
   end
-  resources :merchants, controller: "accounts_controller" do
+  resources :merchants, controller: "accounts" do
     resources :transaction_logs
   end
   devise_for :users
