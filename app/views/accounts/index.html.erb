@@ -20,7 +20,7 @@
         <td><%= link_to account.accn, account_path(account) %></td>
         <td><%= account.imei %></td>
         <td><%= account._type %></td>
-        <td><%= account.balance %></td>
+        <td><%= number_to_currency account.balance, unit: "Rp " %></td>
         <td><%=l account.created_at %></td>
         <td><%=l account.updated_at %></td>
         <td>

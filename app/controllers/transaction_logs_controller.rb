@@ -27,8 +27,8 @@ class TransactionLogsController < InheritedResources::Base
           logs = JSON.parse(logs_row)
           logs.each do |log|
             # check merchant & payer
-            merchant = Merchant.where(id: log["ACCN-R"]).first
-            payer = Payer.where(id: log["ACCN-S"]).first
+            merchant = Merchant.where(accn: log["ACCN-R"].to_s).first
+            payer = Payer.where(accn: log["ACCN-S"].to_s).first
             if merchant && payer
               merchant.transaction_logs.create(
                 merchant_id: log["ACCN-R"],
@@ -54,7 +54,7 @@ class TransactionLogsController < InheritedResources::Base
                 binary_id: log["BinaryID"]
               )
             else
-              @error = "Invalid Transactions"
+              @error = "Invalid Transactions on #{log["NUM"]}"
             end
           end
         else
