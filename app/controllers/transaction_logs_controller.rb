@@ -16,7 +16,7 @@ class TransactionLogsController < InheritedResources::Base
     header = JSON.parse params[:header]
     logs_row = params[:logs]
     signature = header["signature"]
-    last_sync_at = header["last_sync_at"] # to generate new key
+    last_sync_at = header["last_sync_at"].to_i # to generate new key
     start_balance = header["balance"]
     #@error = ""
     if signature != Digest::SHA256.hexdigest(logs_row).upcase
@@ -71,7 +71,10 @@ class TransactionLogsController < InheritedResources::Base
         @error = "Duplicate Transaction"
       end
     end
-    @key = ServerSetting.first.key
+    @server = ServerSetting.first
+    if last_sync_at < @server.updated_at.to_i
+      @key = @server.key
+    end
     @account_balance = Account.where(accn: header["ACCN"].to_s).first.balance.to_i if account
     respond_to do |format|
       format.json
