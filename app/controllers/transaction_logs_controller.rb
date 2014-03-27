@@ -23,7 +23,7 @@ class TransactionLogsController < InheritedResources::Base
       @error = "Hash not match"
     else
       account = Account.where(accn: header["ACCN"].to_s).first
-      @sync = Sync.new(data: params[:data], header: params[:header], logs: params[:logs], hashed_logs: signature)
+      @sync = Sync.new(account: account, data: params[:data], header: params[:header], logs: params[:logs], hashed_logs: signature)
       if @sync.save
         if account
           logs = JSON.parse(logs_row)
@@ -72,7 +72,7 @@ class TransactionLogsController < InheritedResources::Base
       end
     end
     @key = ServerSetting.first.key
-    @account_balance = Account.where(accn: header["ACCN"].to_s).first.balance if account
+    @account_balance = Account.where(accn: header["ACCN"].to_s).first.balance.to_i if account
     respond_to do |format|
       format.json
       format.html

@@ -9,6 +9,7 @@ class Account
   field :imei
   validates :accn, presence: true, uniqueness: true
   before_validation :set_accn
+  has_many :syncs
   def self.columns
     self.fields.collect{|c| c[1]}
   end
