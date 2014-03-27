@@ -29,8 +29,13 @@ class TransactionLogsController < InheritedResources::Base
           logs = JSON.parse(logs_row)
           logs.each do |log|
             # check merchant & payer
-            merchant = Merchant.where(accn: log["ACCN-M"].to_s).first
-            payer = Payer.where(accn: log["ACCN-P"].to_s).first
+            if log["ACCN-M"].to_s[0] == "1"
+              merchant = Merchant.where(accn: log["ACCN-M"].to_s).first
+              payer = Payer.where(accn: log["ACCN-P"].to_s).first
+            else
+              merchant = Merchant.where(accn: log["ACCN-P"].to_s).first
+              payer = Payer.where(accn: log["ACCN-M"].to_s).first
+            end
             if merchant && payer
               log_payer = payer.transaction_logs.build(
                 merchant_id: log["ACCN-M"],
