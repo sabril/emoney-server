@@ -17,6 +17,7 @@ class TransactionLogsController < InheritedResources::Base
     logs_row = params[:logs]
     signature = header["signature"]
     last_sync_at = header["last_sync_at"] # to generate new key
+    start_balance = header["balance"]
     #@error = ""
     if signature != Digest::SHA256.hexdigest(logs_row).upcase
       @error = "Hash not match"
@@ -71,6 +72,7 @@ class TransactionLogsController < InheritedResources::Base
       end
     end
     @key = ServerSetting.first.key
+    @account_balance = Account.where(accn: header["ACCN"].to_s).first.balance if account
     respond_to do |format|
       format.json
       format.html
