@@ -8,7 +8,7 @@ class Sync
   field :logs
   field :hashed_logs
   
-  validates :hashed_logs, presence: true, uniqueness: {scope: :account_id} # check for reply attack
+  validates :hashed_logs, presence: true#, uniqueness: {scope: :account_id} # check for reply attack
   def self.columns
     self.fields.collect{|c| c[1]}
   end
