@@ -33,6 +33,7 @@ EmoneyServer::Application.routes.draw do
     get '/profile' => "devise/registrations#edit"
   end
   
+  get '/create_account/:account' => "accounts#create_account"
   post '/sync' => "transaction_logs#sync"
   post '/register' => "accounts#register"
   # The priority is based upon order of creation: first created -> highest priority.

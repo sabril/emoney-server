@@ -11,6 +11,15 @@ class AccountsController < InheritedResources::Base
     @transaction_log = @account.transaction_logs.build(log_type: "TopUp")
   end
   
+  def create_account
+    if params["account"] == "merchant"
+      account = current_user.create_merchant_account
+    else
+      account = current_user.create_payer_account
+    end
+    redirect_to account
+  end
+  
   def register
     data = JSON.parse params[:data].to_s
     # @account = Account.where(accn: data["ACCN"].to_s, imei: data["HWID"].to_s).first
@@ -57,6 +66,6 @@ class AccountsController < InheritedResources::Base
   private
 
   def permitted_params
-    params.permit(account: [:imei, :accn, :balance])
+    params.permit(account: [:imei, :accn, :balance, :_type])
   end
 end

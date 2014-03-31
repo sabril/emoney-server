@@ -37,6 +37,9 @@
   </tbody>
 </table>
 
-<%#= link_to t('.new', :default => t("helpers.links.new")),
-            new_account_path,
+<%= link_to "Create Merchant",
+            "/create_account/merchant",
+            :class => 'btn btn-primary' %>
+<%= link_to "Create Payer",
+            "/create_account/payer",
             :class => 'btn btn-primary' %>
