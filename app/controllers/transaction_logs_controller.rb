@@ -109,7 +109,9 @@ class TransactionLogsController < InheritedResources::Base
     @sync.error_logs = @error if @error
     @sync.save
     @server = ServerSetting.first
+    @renew_key = false
     if last_sync_at < @server.updated_at.to_i
+      @renew_key = true
       @key = @server.key
     end
     @account_balance = Account.where(accn: header["ACCN"].to_s).first.balance.to_i if account
