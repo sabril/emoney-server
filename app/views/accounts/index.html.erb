@@ -9,7 +9,6 @@
       <th><%= model_class.human_attribute_name(:imei) %></th>
       <th><%= model_class.human_attribute_name(:type) %></th>
       <th><%= model_class.human_attribute_name(:balance) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%= model_class.human_attribute_name(:last_update) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -21,7 +20,6 @@
         <td><%= account.imei %></td>
         <td><%= account._type %></td>
         <td><%= number_to_currency account.balance, unit: "Rp " %></td>
-        <td><%=l account.created_at %></td>
         <td><%=l account.updated_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
