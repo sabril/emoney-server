@@ -52,17 +52,20 @@ class TransactionLogsController < InheritedResources::Base
                   )
                 end
                 if log_payer.save
-                  log_merchant = merchant.transaction_logs.create(
-                    merchant_id: log["ACCN-M"],
-                    payer_id: log["ACCN-P"],
-                    amount: log["AMNT"],
-                    log_type: log["PT"],
-                    timestamp: log["TS"],
-                    status: "completed",
-                    cancel: log["CNL"],
-                    num: log["NUM"],
-                    binary_id: log["BinaryID"]
-                  )
+                  log_merchant = merchant.transaction_logs.where(timestamp: log["TS"]).first
+                  unless log_merchant
+                    log_merchant = merchant.transaction_logs.create(
+                      merchant_id: log["ACCN-M"],
+                      payer_id: log["ACCN-P"],
+                      amount: log["AMNT"],
+                      log_type: log["PT"],
+                      timestamp: log["TS"],
+                      status: "completed",
+                      cancel: log["CNL"],
+                      num: log["NUM"],
+                      binary_id: log["BinaryID"]
+                    )
+                  end
                 else
                   # better error
                   @error = "Error Payer: #{log_payer.errors.messages}"
