@@ -2,6 +2,7 @@
   <%= f.input :header, as: :text, input_html: {rows: 20} %>
   <%= f.input :logs, as: :text, input_html: {rows: 20} %>
   <%= f.input :data, as: :text, input_html: {rows: 20} %>
+  <%= f.input :error_logs, as: :text, input_html: {rows: 20} %>
 
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

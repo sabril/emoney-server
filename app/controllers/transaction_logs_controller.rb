@@ -76,7 +76,7 @@ class TransactionLogsController < InheritedResources::Base
         @error = "Duplicate Transaction"
       end
     end
-    @sync.error = @error if @error
+    @sync.error_logs = @error if @error
     @sync.save
     @server = ServerSetting.first
     if last_sync_at < @server.updated_at.to_i
