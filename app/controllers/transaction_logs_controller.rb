@@ -55,7 +55,7 @@ class TransactionLogsController < InheritedResources::Base
                   amount: log["AMNT"],
                   log_type: log["PT"],
                   timestamp: log["TS"],
-                  status: log["STAT"],
+                  status: "completed",
                   cancel: log["CNL"],
                   num: log["NUM"],
                   binary_id: log["BinaryID"]
@@ -76,6 +76,8 @@ class TransactionLogsController < InheritedResources::Base
         @error = "Duplicate Transaction"
       end
     end
+    @sync.error = @error if @error
+    @sync.save
     @server = ServerSetting.first
     if last_sync_at < @server.updated_at.to_i
       @key = @server.key

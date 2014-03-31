@@ -7,6 +7,7 @@ class Sync
   field :header
   field :logs
   field :hashed_logs
+  field :error_logs
   
   validates :hashed_logs, presence: true#, uniqueness: {scope: :account_id} # check for reply attack
   def self.columns
