@@ -3,7 +3,7 @@ class AccountsController < InheritedResources::Base
   skip_before_filter :verify_authenticity_token, only: :register, :if => Proc.new { |c| c.request.format == 'application/json' }
 
   def index
-    @accounts = current_user.accounts
+    @accounts = current_user.accounts.order_by("updated_at desc")
   end
   
   def top_up

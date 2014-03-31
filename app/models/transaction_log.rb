@@ -15,7 +15,7 @@ class TransactionLog
   field :binary_id
   
   validate :check_account_balance
-  after_save :update_account_balance
+  after_create :update_account_balance
   def self.columns
     self.fields.collect{|c| c[1]}
   end
