@@ -4,7 +4,7 @@ class TransactionLogsController < InheritedResources::Base
 
   def index
     @account = Account.find params[:account_id]
-    @transaction_logs = @account.transaction_logs
+    @transaction_logs = @account.transaction_logs.order_by("created_at desc")
   end
   
   def show
@@ -29,44 +29,74 @@ class TransactionLogsController < InheritedResources::Base
           logs = JSON.parse(logs_row)
           logs.each do |log|
             # check merchant & payer
-            if log["ACCN-M"].to_s[0] == "1"
-              merchant = Merchant.where(accn: log["ACCN-M"].to_s).first
+            if header["ACCN"].to_s[0] == "1"
+              merchant = Merchant.where(accn: header["ACCN"].to_s).first
               payer = Payer.where(accn: log["ACCN-P"].to_s).first
-            else
-              merchant = Merchant.where(accn: log["ACCN-P"].to_s).first
-              payer = Payer.where(accn: log["ACCN-M"].to_s).first
-            end
-            if merchant && payer
-              log_payer = payer.transaction_logs.build(
-                merchant_id: log["ACCN-M"],
-                payer_id: log["ACCN-P"],
-                amount: -(log["AMNT"]),
-                log_type: log["PT"],
-                timestamp: log["TS"],
-                status: log["STAT"],
-                cancel: log["CNL"],
-                num: log["NUM"],
-                binary_id: log["BinaryID"]
-              )
-              if log_payer.save
-                log_merchant = merchant.transaction_logs.create(
-                  merchant_id: log["ACCN-M"],
-                  payer_id: log["ACCN-P"],
-                  amount: log["AMNT"],
-                  log_type: log["PT"],
-                  timestamp: log["TS"],
-                  status: "completed",
-                  cancel: log["CNL"],
-                  num: log["NUM"],
-                  binary_id: log["BinaryID"]
-                )
+              if merchant && payer
+                # cari timestamp kalau ketemu update log / tidak create log
+                log_payer = payer.transaction_logs.where(timestamp: log["TS"]).first
+                if log_payer
+                  log_payer.merchant_id = log["ACCN-M"]
+                  log_payer.status = "completed"
+                else
+                  log_payer = payer.transaction_logs.build(
+                    merchant_id: log["ACCN-M"],
+                    payer_id: log["ACCN-P"],
+                    amount: -(log["AMNT"]),
+                    log_type: log["PT"],
+                    timestamp: log["TS"],
+                    status: log["STAT"],
+                    cancel: log["CNL"],
+                    num: log["NUM"],
+                    binary_id: log["BinaryID"]
+                  )
+                end
+                if log_payer.save
+                  log_merchant = merchant.transaction_logs.create(
+                    merchant_id: log["ACCN-M"],
+                    payer_id: log["ACCN-P"],
+                    amount: log["AMNT"],
+                    log_type: log["PT"],
+                    timestamp: log["TS"],
+                    status: "completed",
+                    cancel: log["CNL"],
+                    num: log["NUM"],
+                    binary_id: log["BinaryID"]
+                  )
+                else
+                  # better error
+                  @error = "Error Payer: #{log_payer.errors.messages}"
+                end
               else
-                # better error
-                @error = "Error Payer: #{log_payer.errors.messages}"
+                # need to block
+                @error = "Invalid Transactions"
               end
             else
-              # need to block
-              @error = "Invalid Transactions"
+              # 2
+              payer = Payer.where(accn: header["ACCN"].to_s).first
+              merchant = Merchant.where(accn: log["ACCN-M"].to_s).first
+              if payer
+                # cari timestamp kalau ketemu update log / tidak create log
+                log_payer = payer.transaction_logs.where(timestamp: log["TS"]).first
+                if log_payer
+                  log_payer.merchant_id = log["ACCN-M"]
+                else
+                  log_payer = payer.transaction_logs.create(
+                    merchant_id: log["ACCN-M"],
+                    payer_id: log["ACCN-P"],
+                    amount: -(log["AMNT"]),
+                    log_type: log["PT"],
+                    timestamp: log["TS"],
+                    status: log["STAT"],
+                    cancel: log["CNL"],
+                    num: log["NUM"],
+                    binary_id: log["BinaryID"]
+                  )
+                end
+              else
+                # need to block
+                @error = "Invalid Transactions"
+              end
             end
           end
         else
