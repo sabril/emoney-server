@@ -22,18 +22,8 @@ class AccountsController < InheritedResources::Base
   
   def register
     data = JSON.parse params[:data].to_s
-    # @account = Account.where(accn: data["ACCN"].to_s, imei: data["HWID"].to_s).first
-    # unless @account
-    #   @account = Account.where(accn: data["ACCN"].to_s).first
-    #   if @account
-    #     @account.update_attributes(imei: data["HWID"].to_s)
-    #   else
-    #     @error = "Account not found"
-    #   end
-    # else
-    #   @key = ServerSetting.first.key
-    # end
     @account = Account.where(accn: data["ACCN"].to_s).first
+    @server = ServerSetting.first
     if @account
       if @account.imei.present?
         @error = "Already registered"
