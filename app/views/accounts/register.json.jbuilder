@@ -4,5 +4,5 @@ if @error
 else
   json.result "Success"
   json.key @key
-  json.balance @account.balance
+  json.balance @account.balance.to_i
 end
