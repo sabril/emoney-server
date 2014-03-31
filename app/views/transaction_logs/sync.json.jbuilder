@@ -9,5 +9,5 @@ end
 json.key do
   json.renew @renew_key
   json.key @key
+  json.last_sync_at @server.updated_at.to_i
 end
-json.last_sync_at @server.updated_at.to_i
