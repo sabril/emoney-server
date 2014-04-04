@@ -66,10 +66,10 @@ class TransactionLogsController < InheritedResources::Base
                       binary_id: log["BinaryID"]
                     )
                   end
-                  @success_logs << log["NUM"]
                 else
                   # better error
-                  #@error = "Error Payer: #{log_payer.errors.messages}"
+                  @error = "Error Payer: #{log_payer.errors.messages}"
+                  @error_logs << log["NUM"]
                 end
               else
                 # need to block
