@@ -18,7 +18,7 @@ class TransactionLogsController < InheritedResources::Base
     signature = header["signature"]
     last_sync_at = header["last_sync_at"].to_i # to generate new key
     start_balance = header["balance"]
-    #@error = ""
+    @success_logs = []
     if signature != Digest::SHA256.hexdigest(logs_row).upcase
       @error = "Hash not match"
     else
@@ -66,9 +66,10 @@ class TransactionLogsController < InheritedResources::Base
                       binary_id: log["BinaryID"]
                     )
                   end
+                  @success_logs << log["NUM"]
                 else
                   # better error
-                  @error = "Error Payer: #{log_payer.errors.messages}"
+                  #@error = "Error Payer: #{log_payer.errors.messages}"
                 end
               else
                 # need to block

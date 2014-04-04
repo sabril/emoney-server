@@ -97,3 +97,4 @@ gem "brakeman"
 gem "figaro"
 gem "wicked"
 gem 'rubysl-securerandom'
+gem 'mongoid-embedded-errors'
