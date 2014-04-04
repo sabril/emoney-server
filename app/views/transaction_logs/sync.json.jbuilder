@@ -4,8 +4,8 @@ if @error
 else
   json.result "success"
   json.balance @account_balance
-  json.error_logs @error_logs
 end
+json.error_logs @error_logs
 json.key do
   json.renew @renew_key
   json.key @key
