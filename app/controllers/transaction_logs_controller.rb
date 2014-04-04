@@ -39,7 +39,7 @@ class TransactionLogsController < InheritedResources::Base
                   log_payer.merchant_id = log["ACCN-M"]
                   log_payer.status = "completed"
                 else
-                  log_payer = payer.transaction_logs.build(
+                  log_payer = payer.transaction_logs.new(
                     merchant_id: log["ACCN-M"],
                     payer_id: log["ACCN-P"],
                     amount: -(log["AMNT"]),
@@ -103,6 +103,8 @@ class TransactionLogsController < InheritedResources::Base
               end
             end
           end
+          log_payer = nil
+          log_merchant = nil
         else
           @error = "Account not found"
         end
