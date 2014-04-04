@@ -78,3 +78,8 @@ EmoneyServer::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+
+EmoneyServer::Application.config.middleware.use ExceptionNotifier,
+  :email_prefix => "[Error Emoney] ",
+  :sender_address => %{"notifier" <notifier@emoney.com>},
+  :exception_recipients => %w{syaiful.sabril@gmail.com}

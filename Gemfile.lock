@@ -9,6 +9,12 @@ GIT
       tzinfo (>= 0.3.37)
 
 GIT
+  remote: git://github.com/rails/exception_notification.git
+  revision: 192a49a02d63d28b23ed41cebadfedd490929cf1
+  specs:
+    exception_notification (1.0.0)
+
+GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: 4d0bd4271f7f01d79bbb2b72c04f30a5766db0ef
   branch: bootstrap3
@@ -345,6 +351,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
+  exception_notification!
   factory_girl_rails (= 4.1.0)
   faker
   figaro

@@ -98,3 +98,4 @@ gem "figaro"
 gem "wicked"
 gem 'rubysl-securerandom'
 gem 'mongoid-embedded-errors'
+gem "exception_notification", :git => "git://github.com/rails/exception_notification.git", :require => "exception_notifier"
