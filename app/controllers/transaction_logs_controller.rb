@@ -68,7 +68,7 @@ class TransactionLogsController < InheritedResources::Base
                   end
                 else
                   # better error
-                  @error = "Error Payer: #{log_payer.errors.messages}"
+                  #@error = "Error Payer: #{log_payer.errors.messages}"
                   @error_logs << log["NUM"]
                 end
               else
