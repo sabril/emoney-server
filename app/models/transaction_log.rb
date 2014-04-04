@@ -2,7 +2,7 @@ class TransactionLog
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
-  embedded_in :account
+  belongs_to :account
 
   field :amount, type: Float
   field :log_type
