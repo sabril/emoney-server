@@ -18,7 +18,7 @@ class TransactionLogsController < InheritedResources::Base
     signature = header["signature"]
     last_sync_at = header["last_sync_at"].to_i # to generate new key
     start_balance = header["balance"]
-    @success_logs = []
+    @error_logs = []
     if signature != Digest::SHA256.hexdigest(logs_row).upcase
       @error = "Hash not match"
     else
