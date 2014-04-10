@@ -2,6 +2,12 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<%= link_to "Create Merchant",
+            "/create_account/merchant",
+            :class => 'btn btn-primary' %>
+<%= link_to "Create Payer",
+            "/create_account/payer",
+            :class => 'btn btn-primary' %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -36,10 +42,6 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to "Create Merchant",
-            "/create_account/merchant",
-            :class => 'btn btn-primary' %>
-<%= link_to "Create Payer",
-            "/create_account/payer",
-            :class => 'btn btn-primary' %>
+<div class="pagination">
+  <%= paginate @accounts %>
+</div>
