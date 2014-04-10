@@ -2,7 +2,7 @@ class Account
   include Mongoid::Document
   include Mongoid::Timestamps
   belongs_to :user
-  embeds_many :transaction_logs
+  embeds_many :transaction_logs, cascade_callbacks: true
 
   field :balance, type: Float
   field :accn

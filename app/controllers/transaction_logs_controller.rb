@@ -39,7 +39,7 @@ class TransactionLogsController < InheritedResources::Base
                   log_payer.merchant_id = log["ACCN-M"]
                   log_payer.status = "completed"
                 else
-                  log_payer = payer.transaction_logs.new(
+                  log_payer = payer.transaction_logs.build(
                     merchant_id: log["ACCN-M"],
                     payer_id: log["ACCN-P"],
                     amount: -(log["AMNT"]),
@@ -51,7 +51,7 @@ class TransactionLogsController < InheritedResources::Base
                     binary_id: log["BinaryID"]
                   )
                 end
-                if log_payer.save
+                if log_payer.valid? && log_payer.save
                   log_merchant = merchant.transaction_logs.where(timestamp: log["TS"]).first
                   unless log_merchant
                     log_merchant = merchant.transaction_logs.create(

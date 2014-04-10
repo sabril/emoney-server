@@ -21,7 +21,8 @@ class TransactionLog
 
   def check_account_balance
     if account._type == "Payer" && (account.balance - amount.abs) < 0 && log_type != "TopUp"
-      errors.add(:base, "Account balance is not enough for this transaction's amount")
+      errors.add(:amount, "Account balance is not enough for this transaction's amount")
+      return false
     end
   end
   
