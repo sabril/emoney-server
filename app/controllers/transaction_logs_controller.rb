@@ -4,7 +4,7 @@ class TransactionLogsController < InheritedResources::Base
 
   def index
     @account = Account.find params[:account_id]
-    @transaction_logs = @account.transaction_logs.order_by("created_at desc")
+    @transaction_logs = @account.transaction_logs.order_by("created_at desc").page(params[:page]).per(10)
   end
   
   def show
