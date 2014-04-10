@@ -2,8 +2,7 @@ class TransactionLog
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
-  belongs_to :account
-
+  embedded_in :account
   field :amount, type: Float
   field :log_type
   field :payer_id, type: Integer
@@ -29,5 +28,20 @@ class TransactionLog
   def update_account_balance
     account.balance += amount
     account.save
+  end
+  
+  def merchant
+    Account.where(accn: merchant_id.to_s).first
+  end
+  
+  def payer
+    Account.where(accn: payer_id.to_s).first
+  end
+  
+  def cancel_transaction
+    unless cancel
+      merchant.transaction_logs.create(amount: -(amount), payer_id: payer_id, merchant_id: merchant_id, timestamp: Time.now.to_i, cancel: true, status: "completed", num: "1")
+      payer.transaction_logs.create(amount: amount, payer_id: payer_id, merchant_id: merchant_id, timestamp: Time.now.to_i, cancel: true, status: "completed", num: "1")
+    end
   end
 end

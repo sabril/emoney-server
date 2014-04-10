@@ -32,10 +32,8 @@
         <td>
           <%#= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_transaction_log_path(@account, transaction_log), :class => 'btn btn-default btn-xs' %>
-          <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      account_transaction_log_path(@account, transaction_log),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+          <%= link_to "cancel",
+                      cancel_account_transaction_log_path(@account, transaction_log),
                       :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>

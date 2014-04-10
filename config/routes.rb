@@ -19,13 +19,19 @@ EmoneyServer::Application.routes.draw do
       get :top_up
       post :process_top_up
     end
-    resources :transaction_logs
+    resources :transaction_logs do
+      get :cancel, on: :member
+    end
   end
   resources :payers, controller: "accounts" do
-    resources :transaction_logs
+    resources :transaction_logs do
+      get :cancel, on: :member
+    end
   end
   resources :merchants, controller: "accounts" do
-    resources :transaction_logs
+    resources :transaction_logs do
+      get :cancel, on: :member
+    end
   end
   devise_for :users
   devise_scope :user do

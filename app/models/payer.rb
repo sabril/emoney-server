@@ -1,3 +1,2 @@
 class Payer < Account
-  
 end

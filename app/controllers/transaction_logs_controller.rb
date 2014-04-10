@@ -126,4 +126,15 @@ class TransactionLogsController < InheritedResources::Base
       format.html
     end
   end
+  
+  def presence
+    
+  end
+  
+  def cancel
+    @account = Account.find params[:account_id]
+    @transaction_log = @account.transaction_logs.find params[:id]
+    @transaction_log.cancel_transaction
+    redirect_to account_transaction_logs_path(@account), notice: "Transaction has been cancelled"
+  end
 end
