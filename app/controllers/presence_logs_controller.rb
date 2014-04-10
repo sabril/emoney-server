@@ -3,8 +3,8 @@ class PresenceLogsController < InheritedResources::Base
   skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
   
   def presence
-    account = Account.where(accn: params[:accn]).first
-    reader = Account.where(imei: params[:imei]).first
+    account = Account.where(accn: params[:accn].to_s).first
+    reader = Account.where(imei: params[:imei].to_s).first
     if account && reader
       account.presence_logs.create(accn: account.accn, imei: reader.imei, timestamp: params[:timestamp])
     else
