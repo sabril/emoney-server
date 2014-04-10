@@ -14,6 +14,7 @@ EmoneyServer::Application.routes.draw do
     end
     resources :syncs
   end
+  resources :presence_logs
   resources :accounts do
     member do
       get :top_up
@@ -22,6 +23,7 @@ EmoneyServer::Application.routes.draw do
     resources :transaction_logs do
       get :cancel, on: :member
     end
+    resources :presence_logs
   end
   resources :payers, controller: "accounts" do
     resources :transaction_logs do
@@ -42,6 +44,7 @@ EmoneyServer::Application.routes.draw do
   get '/create_account/:account' => "accounts#create_account"
   post '/sync' => "transaction_logs#sync"
   post '/register' => "accounts#register"
+  post '/presence' => "presence_logs#presence"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
