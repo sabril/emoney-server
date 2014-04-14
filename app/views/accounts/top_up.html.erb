@@ -1,5 +1,5 @@
 <h3>Top Up</h3>
-<%= simple_form_for @transaction_log, url: process_top_up_account_url(@account, @transaction_log), :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @transaction_log, url: process_top_up_account_url(@account, @transaction_log), :html => { :class => 'form-vertical' } do |f| %>
   <div class="form-inputs">
     <%= f.input :amount %>
     <%= f.input :log_type, as: :hidden %>
