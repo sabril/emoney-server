@@ -57,6 +57,6 @@ class AccountsController < InheritedResources::Base
   private
 
   def permitted_params
-    params.permit(account: [:imei, :accn, :balance, :_type])
+    params.permit(account: [:imei, :accn, :balance, :_type, :name])
   end
 end

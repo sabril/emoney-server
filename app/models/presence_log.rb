@@ -5,6 +5,7 @@ class PresenceLog
   field :accn
   field :timestamp
   field :imei
+  field :sesn
   
   belongs_to :account
   

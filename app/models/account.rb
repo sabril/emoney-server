@@ -8,6 +8,7 @@ class Account
   field :balance, type: Float
   field :accn
   field :imei
+  field :name
   validates :accn, presence: true, uniqueness: true
   before_validation :set_accn
   has_many :syncs

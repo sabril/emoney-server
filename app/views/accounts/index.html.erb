@@ -2,15 +2,18 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<%= link_to "Create Merchant",
+<div class="pull-right">
+<%= link_to raw("<i class='icon-plus'></i> Create Merchant"),
             "/create_account/merchant",
-            :class => 'btn btn-primary' %>
-<%= link_to "Create Payer",
+            :class => 'btn btn-success' %>
+<%= link_to raw("<i class='icon-plus'></i> Create Payer"),
             "/create_account/payer",
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-warning' %>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:accn) %></th>
       <th><%= model_class.human_attribute_name(:imei) %></th>
       <th><%= model_class.human_attribute_name(:type) %></th>
@@ -22,6 +25,7 @@
   <tbody>
     <% @accounts.each do |account| %>
       <tr>
+        <td><%= account.name %></td>
         <td><%= link_to account.accn, account_path(account) %></td>
         <td><%= account.imei %></td>
         <td><%= account._type %></td>
