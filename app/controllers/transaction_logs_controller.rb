@@ -96,7 +96,7 @@ class TransactionLogsController < InheritedResources::Base
                     num: log["NUM"],
                     binary_id: log["BinaryID"]
                   )
-                  if log_payer.valid? && log_payer.save && log["QR"] == "1"
+                  if log_payer.valid? && log_payer.save && header["QR"] == "1"
                     log_merchant = merchant.transaction_logs.where(timestamp: log["TS"]).first
                     unless log_merchant
                       log_merchant = merchant.transaction_logs.create(
