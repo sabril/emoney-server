@@ -85,7 +85,7 @@ class TransactionLogsController < InheritedResources::Base
                 if log_payer
                   log_payer.merchant_id = log["ACCN-M"]
                 else
-                  log_payer = payer.transaction_logs.create(
+                  log_payer = payer.transaction_logs.build(
                     merchant_id: log["ACCN-M"],
                     payer_id: log["ACCN-P"],
                     amount: -(log["AMNT"]),
@@ -96,7 +96,7 @@ class TransactionLogsController < InheritedResources::Base
                     num: log["NUM"],
                     binary_id: log["BinaryID"]
                   )
-                  if log["QR"] == "1"
+                  if log_payer.valid? && log_payer.save && log["QR"] == "1"
                     log_merchant = merchant.transaction_logs.where(timestamp: log["TS"]).first
                     unless log_merchant
                       log_merchant = merchant.transaction_logs.create(
