@@ -15,8 +15,10 @@ class AccountsController < InheritedResources::Base
   def create_account
     if params["account"] == "merchant"
       account = current_user.create_merchant_account
-    else
+    elsif params["account"] == "payer"
       account = current_user.create_payer_account
+    else
+      account = current_user.create_attendance_machine_account
     end
     redirect_to account
   end

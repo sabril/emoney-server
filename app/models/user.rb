@@ -46,6 +46,7 @@ class User
   has_many :accounts, dependent: :destroy
   has_many :payers, dependent: :destroy
   has_many :merchants, dependent: :destroy
+  has_many :attendance_machines, dependent: :destroy
 
   before_save :ensure_authentication_token
   after_create :create_payer_account
@@ -60,6 +61,10 @@ class User
 
   def create_merchant_account(balance=0.0)
     merchants.create(balance: balance)
+  end
+  
+  def create_attendance_machine_account
+    attendance_machines.create
   end
 
   def ensure_authentication_token

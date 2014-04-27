@@ -35,6 +35,11 @@ EmoneyServer::Application.routes.draw do
       get :cancel, on: :member
     end
   end
+  resources :attendance_machines, controller: "accounts" do
+    resources :presence_logs do
+      
+    end
+  end
   devise_for :users
   devise_scope :user do
     get '/logout' => "devise/sessions#destroy"

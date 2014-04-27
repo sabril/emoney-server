@@ -20,8 +20,10 @@ class Account
     begin
       if _type == "Merchant"
         number = "1"
-      else
+      elsif _type == "Payer"
         number = "2"
+      else
+        number = "3"
       end
       charset = %w{ 1 2 3 5 7 9}
       number = number + (0...13).map{ charset.to_a[rand(charset.size)] }.join  
