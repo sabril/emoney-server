@@ -30,4 +30,12 @@ class Account
     end while Account.where(:accn => number).exists?
     self.accn = number if self.new_record? || force
   end
+  
+  def is_merchant?
+    _type == "Merchant"
+  end
+  
+  def is_payer?
+    _type == "Payer"
+  end
 end
