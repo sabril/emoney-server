@@ -4,7 +4,7 @@ class PresenceLogsController < InheritedResources::Base
   
   def presence
     account = Payer.where(accn: params["ACCN-P"].to_s).first
-    reader = Account.where(accn: params["ACCN-M"].to_s).first
+    reader = Account.where(accn: params["ACCN-M", imei: params[:imei]].to_s).first
     if account && reader
       account.presence_logs.create(accn: account.accn, imei: reader.imei, timestamp: params[:timestamp])
     else
@@ -13,5 +13,10 @@ class PresenceLogsController < InheritedResources::Base
     respond_to do |format|
       format.json
     end
+  end
+  
+  def index
+    @account = Account.find params[:account_id]
+    @presence_logs = @account.presence_logs.order_by("created_at desc").page(params[:page]).per(10)
   end
 end
