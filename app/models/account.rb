@@ -38,4 +38,8 @@ class Account
   def is_payer?
     _type == "Payer"
   end
+  
+  def is_presence?
+    _type == "AttendanceMachine"
+  end
 end

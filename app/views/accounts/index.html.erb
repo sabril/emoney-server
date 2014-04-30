@@ -39,12 +39,12 @@
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>
           <%= link_to "TopUp", top_up_account_path(account), class: "btn btn-xs btn-info"%>
           <%= link_to "Logs", account_transaction_logs_path(account), class: "btn btn-xs btn-success"%>
-          <%= link_to "Presence", account_presence_logs_path(account), class: "btn btn-xs btn-warning"%>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       account_path(account),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
+          <%= link_to "Presence", account_presence_logs_path(account), class: "btn btn-xs btn-warning" if account.is_presence? %>
         </td>
       </tr>
     <% end %>
