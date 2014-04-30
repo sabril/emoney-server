@@ -4,7 +4,7 @@ class PresenceLogsController < InheritedResources::Base
   
   def presence
     account = Account.where(accn: params["ACCN-P"].to_s).first
-    reader = Account.where(accn: params["ACCN-M", imei: params["HWID"]].to_s).first
+    reader = Account.where(accn: params["ACCN-M"].to_s, imei: params["HWID"].to_s).first
     if account && reader
       reader.presence_logs.create(accn: account.accn, imei: reader.imei, timestamp: params[:timestamp])
     else
