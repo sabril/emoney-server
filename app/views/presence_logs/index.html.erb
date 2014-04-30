@@ -16,7 +16,7 @@
     <% @presence_logs.each do |presence_log| %>
       <tr>
         <td><%= presence_log.accn %></td>
-        <td><%= Time.at(presence_log.timestamp.to_i).strtime("%Y-%m-%d %H:%M") rescue nil %></td>
+        <td><%= Time.at(presence_log.timestamp.to_i).strftime("%Y-%m-%d %H:%M") rescue nil %></td>
         <td><%= presence_log.imei %></td>
         <td><%=l presence_log.created_at %></td>
         <td>
