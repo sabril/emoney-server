@@ -5,7 +5,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:accn) %></th>
       <th><%= model_class.human_attribute_name(:timestamp) %></th>
       <th><%= model_class.human_attribute_name(:imei) %></th>
@@ -16,7 +15,6 @@
   <tbody>
     <% @presence_logs.each do |presence_log| %>
       <tr>
-        <td><%= link_to presence_log.id, presence_log_path(presence_log) %></td>
         <td><%= presence_log.accn %></td>
         <td><%= presence_log.timestamp %></td>
         <td><%= presence_log.imei %></td>
