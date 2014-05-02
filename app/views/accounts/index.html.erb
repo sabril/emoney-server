@@ -33,7 +33,7 @@
         <td><%= account.imei %></td>
         <td><%= account._type %></td>
         <td><%= number_to_currency account.balance, unit: "Rp " %></td>
-        <td><%=l account.updated_at %></td>
+        <td><%= account.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>
