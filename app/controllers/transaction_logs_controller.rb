@@ -127,10 +127,6 @@ class TransactionLogsController < InheritedResources::Base
     end
   end
   
-  def presence
-    
-  end
-  
   def cancel
     @account = Account.find params[:account_id]
     @transaction_log = @account.transaction_logs.find params[:id]
