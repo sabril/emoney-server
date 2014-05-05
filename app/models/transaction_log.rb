@@ -38,11 +38,6 @@ class TransactionLog
     Account.where(accn: payer_id.to_s).first
   end
   
-  def show_date
-    Time.zone = "Jakarta"
-    Time.zone.at(timestamp.to_i).strftime("%Y-%m-%d %H:%M")
-  end
-  
   def cancel_transaction
     unless cancel
       # cek merchant atau payer
