@@ -8,6 +8,6 @@ end
 json.error_logs @error_logs
 json.key do
   json.renew @renew_key
-  json.key @key
+  json.new_key @key
 end
 json.last_sync_at @server.updated_at.to_i
