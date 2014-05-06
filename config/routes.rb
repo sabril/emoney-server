@@ -46,6 +46,7 @@ EmoneyServer::Application.routes.draw do
     get '/profile' => "devise/registrations#edit"
   end
   
+  get '/update_key' => "home#update_key"
   get '/create_account/:account' => "accounts#create_account"
   post '/sync' => "transaction_logs#sync"
   post '/register' => "accounts#register"
