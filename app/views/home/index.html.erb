@@ -1,6 +1,8 @@
-<h3>Current Key: </h3>
-<h4>
-  <%= ServerSetting.first.key %>
-</h4>
-<br/>
-<%= link_to "Update Key", "/update_key", class: "btn btn-large btn-warning" %>
+<% if current_user.is_admin? %>
+  <h3>Current Key: </h3>
+  <h4>
+    <%= ServerSetting.first.key %>
+  </h4>
+  <br/>
+  <%= link_to "Update Key", "/update_key", class: "btn btn-large btn-warning" %>
+<% end %>
