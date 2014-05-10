@@ -45,7 +45,7 @@ class TransactionLog
         merchant.transaction_logs.create(amount: -(amount), payer_id: payer_id, merchant_id: merchant_id, timestamp: Time.now.to_i, cancel: true, status: "completed", num: "1")
         payer.transaction_logs.create(amount: amount, payer_id: payer_id, merchant_id: merchant_id, timestamp: Time.now.to_i, cancel: true, status: "completed", num: "1")
       elsif account.is_payer?
-        merchant.transaction_logs.create(amount: amount, payer_id: payer_id, merchant_id: merchant_id, timestamp: Time.now.to_i, cancel: true, status: "completed", num: "1")
+        merchant.transaction_logs.create(amount: amount, payer_id: payer_id, merchant_id: merchant_id, timestamp: Time.now.to_i, cancel: true, status: "completed", num: "1") unless log_type == "TopUp"
         payer.transaction_logs.create(amount: -(amount), payer_id: payer_id, merchant_id: merchant_id, timestamp: Time.now.to_i, cancel: true, status: "completed", num: "1")
       end
     end
