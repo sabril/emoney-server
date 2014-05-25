@@ -91,6 +91,7 @@ end
 group :development do
   gem 'thin'
   gem "rails_best_practices"
+  gem 'railroady'
 end
 
 gem "brakeman"

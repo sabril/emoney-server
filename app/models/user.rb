@@ -40,7 +40,7 @@ class User
   field :identity_number
   field :address
   field :phone
-  field :public_key
+  #field :public_key
   field :is_admin, type: Boolean, default: false
   field :authentication_token
   has_many :accounts, dependent: :destroy
