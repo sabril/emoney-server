@@ -32,7 +32,7 @@ class ParkLog
   end
   
   def park_time
-    time_out.to_i - time_in.to_i
+    time_out.present? ? (time_out.to_i - time_in.to_i) : 0
   end
   
   def amount
