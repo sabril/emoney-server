@@ -23,8 +23,10 @@ class Account
         number = "1"
       elsif _type == "Payer"
         number = "2"
-      else
+      elsif _type == "AttendanceMachine"
         number = "3"
+      else
+        number = "4"
       end
       charset = %w{ 1 2 3 5 7 9}
       number = number + (0...13).map{ charset.to_a[rand(charset.size)] }.join  
