@@ -15,6 +15,7 @@ EmoneyServer::Application.routes.draw do
     resources :syncs
   end
   resources :presence_logs
+  resources :park_logs
   resources :accounts do
     member do
       get :top_up
@@ -24,6 +25,7 @@ EmoneyServer::Application.routes.draw do
       get :cancel, on: :member
     end
     resources :presence_logs
+    resources :park_logs
   end
   resources :payers, controller: "accounts" do
     resources :transaction_logs do
@@ -35,6 +37,11 @@ EmoneyServer::Application.routes.draw do
       get :cancel, on: :member
     end
   end
+  
+  resources :park_meters, controller: "accounts" do
+    resources :park_logs
+  end
+  
   resources :attendance_machines, controller: "accounts" do
     resources :presence_logs do
       

@@ -47,6 +47,7 @@ class User
   has_many :payers, dependent: :destroy
   has_many :merchants, dependent: :destroy
   has_many :attendance_machines, dependent: :destroy
+  has_many :park_meters, dependent: :destroy
 
   before_save :ensure_authentication_token
   after_create :create_payer_account
@@ -65,6 +66,10 @@ class User
   
   def create_attendance_machine_account
     attendance_machines.create
+  end
+  
+  def create_park_meter_account
+    park_meters.create
   end
 
   def ensure_authentication_token

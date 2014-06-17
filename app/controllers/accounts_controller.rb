@@ -17,6 +17,8 @@ class AccountsController < InheritedResources::Base
       account = current_user.create_merchant_account
     elsif params["account"] == "payer"
       account = current_user.create_payer_account
+    elsif params["account"] == "park_meter"
+      account = current_user.create_park_meter_account
     else
       account = current_user.create_attendance_machine_account
     end

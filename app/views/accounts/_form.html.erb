@@ -1,5 +1,15 @@
 <%= simple_form_for @account, as: "account", :html => { :class => 'form-vertical' } do |f| %>
   <%= f.input :name %>
+  <% if @account.is_merchant? %>
+    <%= f.input :first_name, :required => true, :autofocus => true %>
+    <%= f.input :last_name, :required => true %>
+    <%= f.input :identity_number, :required => true %>
+    <%= f.input :address, :required => true %>
+    <%= f.input :phone, :required => true %>
+    <%= f.input :email, :required => true %>
+    <%= f.input :bank_account_number %>
+  <% end %>
+  
   <%= f.input :accn %>
   <%= f.input :imei %>
   <%= f.input :balance %>

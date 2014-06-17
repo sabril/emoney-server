@@ -4,6 +4,7 @@ class Account
   belongs_to :user
   embeds_many :transaction_logs, cascade_callbacks: true
   has_many :presence_logs
+  has_many :park_logs
 
   field :balance, type: Float
   field :accn
@@ -41,5 +42,9 @@ class Account
   
   def is_presence?
     _type == "AttendanceMachine"
+  end
+  
+  def is_park_meter?
+    _type == "ParkMeter"
   end
 end

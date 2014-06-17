@@ -12,6 +12,9 @@
 <%= link_to raw("<i class='icon-plus'></i> Create Attendance Machine"),
             "/create_account/attendance_machine",
             :class => 'btn btn-info' %>
+<%= link_to raw("<i class='icon-plus'></i> Create Park Meter"),
+            "/create_account/park_meter",
+            :class => 'btn btn-warning' %>
 </div>
 <table class="table table-striped">
   <thead>
@@ -38,7 +41,8 @@
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>
           <%= link_to "TopUp", top_up_account_path(account), class: "btn btn-xs btn-info"%>
-          <%= link_to "Logs", account_transaction_logs_path(account), class: "btn btn-xs btn-success" unless account.is_presence? %>
+          <%= link_to "Park", account_park_logs_path(account), class: "btn btn-xs btn-warning" if account.is_park_meter? %>
+          <%= link_to "Logs", account_transaction_logs_path(account), class: "btn btn-xs btn-success" if !account.is_presence? && !account.is_park_meter? %>
           <%= link_to "Presence", account_presence_logs_path(account), class: "btn btn-xs btn-warning" if account.is_presence? %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       account_path(account),

@@ -1,0 +1,2 @@
+class ParkMeter < Account
+end
