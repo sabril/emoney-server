@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:accn) %></th>
+      <th><%= model_class.human_attribute_name(:license) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
       <th><%= model_class.human_attribute_name(:park_key) %></th>
       <th><%= model_class.human_attribute_name(:park_time) %></th>
@@ -18,6 +19,7 @@
     <% @park_logs.each do |park_log| %>
       <tr>
         <td><%= park_log.accn %></td>
+        <td><%= park_log.licence.upcase %></td>
         <td><%= park_log.status %></td>
         <td><%= park_log.park_key %></td>
         <td><%= (park_log.park_time.to_f / 3600).round(2) %> hours</td>
