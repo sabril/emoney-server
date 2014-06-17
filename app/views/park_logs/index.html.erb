@@ -20,7 +20,7 @@
         <td><%= park_log.accn %></td>
         <td><%= park_log.status %></td>
         <td><%= park_log.park_key %></td>
-        <td><%= (park_log.park_time.to_f / 3600) %> hours</td>
+        <td><%= (park_log.park_time.to_f / 3600).round(2) %> hours</td>
         <td><%= number_to_currency park_log.amount, unit: "Rp. " %></td>
         <td><%= park_log.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
         <td>
