@@ -3,13 +3,7 @@ class ParkLogsController < InheritedResources::Base
   skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
   
   def park
-    # account = Account.where(accn: params["ACCN-P"].to_s).first
-    # reader = Account.where(accn: params["ACCN-M"].to_s, imei: params["HWID"].to_s).first
-    # if account && reader
-    #   reader.presence_logs.create(accn: account.accn, imei: reader.imei, timestamp: params[:timestamp])
-    # else
-    #   @error = "Invalid presence"
-    # end
+    # park in or out?
     respond_to do |format|
       format.json
     end
