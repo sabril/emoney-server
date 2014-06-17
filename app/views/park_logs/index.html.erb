@@ -7,7 +7,6 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:accn) %></th>
-      <th><%= model_class.human_attribute_name(:timestamp) %></th>
       <th><%= model_class.human_attribute_name(:park) %></th>
       <th><%= model_class.human_attribute_name(:imei) %></th>
       <th><%= model_class.human_attribute_name(:sesn) %></th>
@@ -21,7 +20,6 @@
       <tr>
         <td><%= link_to park_log.id, park_log_path(park_log) %></td>
         <td><%= park_log.accn %></td>
-        <td><%= park_log.timestamp %></td>
         <td><%= park_log.park %></td>
         <td><%= park_log.imei %></td>
         <td><%= park_log.sesn %></td>
