@@ -1,5 +1,5 @@
 class AccountsController < InheritedResources::Base
-  before_filter :authenticate_user!, except: [:register]
+  before_filter :authenticate_user!, except: [:register, :get_key]
   skip_before_filter :verify_authenticity_token, only: :register, :if => Proc.new { |c| c.request.format == 'application/json' }
 
   def index
