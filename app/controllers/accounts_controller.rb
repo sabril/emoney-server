@@ -25,6 +25,25 @@ class AccountsController < InheritedResources::Base
     redirect_to account
   end
   
+  def get_key
+    account = Account.where(accn: params["ACCN"].to_s).first
+    @server = ServerSetting.first
+    if account
+      last_sync_at = params["last_sync_at"].to_i # to generate new key
+      @renew_key = false
+      if last_sync_at < @server.updated_at.to_i
+        @renew_key = true
+        @key = @server.key
+      end
+    else
+      @error = "account not found"
+    end
+    respond_to do |format|
+      format.json
+      format.html
+    end
+  end
+  
   def register
     data = JSON.parse params[:data].to_s
     @account = Account.where(accn: data["ACCN"].to_s).first

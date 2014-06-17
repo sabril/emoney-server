@@ -59,6 +59,8 @@ EmoneyServer::Application.routes.draw do
   post '/register' => "accounts#register"
   post '/presence' => "presence_logs#presence"
   post '/park' => "park_logs#park"
+  post '/get_key' => "accounts#get_key"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
