@@ -69,11 +69,12 @@ development:
 production: 
   sessions:
     default:
-      database: app22034297
-      hosts: 
-        - troup.mongohq.com:10064
-      username: heroku
-      password: e39c647dfbdfb1faaa4fd3311584db20
+      url: <%= ENV['MONGOHQ_URL'] %>
+      # database: app22034297
+      # hosts: 
+      #   - troup.mongohq.com:10064
+      # username: heroku
+      # password: e39c647dfbdfb1faaa4fd3311584db20
     
 test:
   sessions:
