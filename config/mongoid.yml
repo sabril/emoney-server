@@ -69,7 +69,7 @@ development:
 production: 
   sessions:
     default:
-      url: <%= ENV['MONGOHQ_URL'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
       # database: app22034297
       # hosts: 
       #   - troup.mongohq.com:10064
