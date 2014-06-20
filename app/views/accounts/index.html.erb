@@ -40,7 +40,7 @@
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>
-          <%= link_to "TopUp", top_up_account_path(account), class: "btn btn-xs btn-info"%>
+          <%= link_to "TopUp", top_up_account_path(account), class: "btn btn-xs btn-info" if account.is_payer? || account.is_merchant? %>
           <%= link_to "Park", account_park_logs_path(account), class: "btn btn-xs btn-warning" if account.is_park_meter? %>
           <%= link_to "Logs", account_transaction_logs_path(account), class: "btn btn-xs btn-success" if !account.is_presence? && !account.is_park_meter? %>
           <%= link_to "Presence", account_presence_logs_path(account), class: "btn btn-xs btn-warning" if account.is_presence? %>

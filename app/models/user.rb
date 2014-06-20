@@ -3,7 +3,7 @@ class User
   include Mongoid::Timestamps
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   ## Database authenticatable
@@ -50,18 +50,18 @@ class User
   has_many :park_meters, dependent: :destroy
 
   before_save :ensure_authentication_token
-  after_create :create_payer_account
+  after_create :create_payer_account, :create_merchant_account
   accepts_nested_attributes_for :accounts
   def self.columns
     self.fields.collect{|c| c[1]}
   end
 
   def create_payer_account(balance=0.0)
-    payers.create(balance: balance)
+    payers.create(balance: balance, name: "Example Payer")
   end
 
   def create_merchant_account(balance=0.0)
-    merchants.create(balance: balance)
+    merchants.create(balance: balance, name: "Example Merchant")
   end
   
   def create_attendance_machine_account
