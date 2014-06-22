@@ -49,8 +49,9 @@ class ParkLogsController < InheritedResources::Base
   end
   
   def destroy
+    @account = Account.find params[:account_id]
     super do |format|
-      format.html { redirect_to accounts_url }
+      format.html { redirect_to account_park_logs_url(@account) }
     end
   end
 end
