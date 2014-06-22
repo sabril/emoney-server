@@ -47,4 +47,10 @@ class ParkLogsController < InheritedResources::Base
     @account = Account.find params[:account_id]
     @park_logs = @account.park_logs.order_by("created_at desc").page(params[:page]).per(10)
   end
+  
+  def destroy
+    super do |format|
+      format.html { redirect_to accounts_url }
+    end
+  end
 end
