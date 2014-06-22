@@ -25,7 +25,7 @@ class ParkLog
   
   def set_park_key(force=false)
     begin
-      charset = %w{0 1 2 3 4 5 6 7 9}
+      charset = %w{1 2 3 4 5 6 7 9}
       number = (0...9).map{ charset.to_a[rand(charset.size)] }.join  
     end while ParkLog.where(:park_key => number).exists?
     self.park_key = number if self.new_record? || force
